@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Birthday Message</title>
+  <style>
+    body, html {
+      height: 100%;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #f8f8f8;
+      background-image: url('https://s-media-cache-ak0.pinimg.com/originals/0b/dc/4e/0bdc4e3db983b1ae12a20f0f6f5dd2be.jpg');
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-attachment: fixed;
+    }
+
+    .container {
+      text-align: center;
+      background-color: rgba(255, 255, 255, 0.8);
+      padding: 20px;
+      border-radius: 10px;
+    }
+
+    #message {
+      font-size: 24px;
+      font-family: Arial, sans-serif;
+      color: black;
+      display: none;
+    }
+
+    .flower-image {
+      width: 150px;
+      height: auto;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+
+    #timer {
+      font-size: 20px;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <img src="https://tse2.mm.bing.net/th?id=OIP.E0SHY68FJ217kSlin_ln1AHaLA&pid=Api&P=0&h=180" alt="Rose Flower" class="flower-image">
+    <div id="timer"></div>
+    <div id="celebration-line">🎉 Birth celebrations of Subhajyoti 🎉</div>
+
+    <div id="message"></div>
+  </div>
+
+  <script>
+    const message = "🎂 Happy birthday, Subhajyoti! 🎂 Wishing you a day as beautiful as your smile. 🎂 May each moment be filled with love, laughter, and unforgettable memories. 🎂 You deserve all the happiness in the world today and every day. 🎂 Cheers to another amazing year ahead with you by my side.";
+    const messageContainer = document.getElementById("message");
+    const timerContainer = document.getElementById("timer");
+    const celebrationLine = document.getElementById("celebration-line")
+    const targetDate = new Date(" November 10, 2025 00:00:00").getTime();
+
+    function updateTimer() {
+      const now = new Date().getTime();
+      const distance = targetDate - now;
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      timerContainer.innerHTML = `Time remaining: ${days}d ${hours}h ${minutes}m ${seconds}s`;
+
+      if (distance < 0) {
+        clearInterval(timerInterval);
+        timerContainer.style.display = "none";
+        messageContainer.style.display = "block";
+        displayMessage();
+      }
+    }
+
+    function displayMessage() {
+      const words = message.split(" ");
+      let index = 0;
+
+      function typeNext() {
+        if (index < words.length) {
+          messageContainer.textContent += words[index] + " ";
+          index++;
+          setTimeout(typeNext, 100);
+        } else {
+          // Wait 1 second, then clear and restart
+          setTimeout(() => {
+            messageContainer.textContent = "";
+            index = 0;
+            typeNext();
+          }, 1000);
+        }
+      }
+
+      typeNext(); // Start typing
+    }
+
+    const timerInterval = setInterval(updateTimer, 1000);
+    updateTimer();
+  </script>
+</body>
+</html>
